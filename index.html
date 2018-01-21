@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Таблица умножения</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- My css -->
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <h1>Таблица умножения</h1>
+    <div class="container">
+      <div class="inputbox">
+        <input type="text" id="input_value" onkeypress="if(event.keyCode == 13) return Foo()" placeholder="Введите число" autofocus>
+        <button class="button" type="button" onclick="createTable()">Показать</button>
+      </div>
+      <div class="table">
+        <table id="tab">
+        <!-- Here is JS function creates table body -->
+        </table>
+      </div>
+    </div>
+
+    <!-- JS code -->
+    <script>
+
+      function validInput(text) {
+        if(text > 10 || text < 1) {
+          alert("Введенное число должно быть от 1 до 10");
+          document.getElementById("input_value").value = '';
+          return false;
+        }
+        if (isNaN(text)) {
+          alert("Необходимо ввести число!");
+          document.getElementById("input_value").value = '';
+          return false;
+        }
+        return true;
+      }
+
+      function createTable() {
+        var myNode = document.getElementById("tab");
+        // clear table
+        while (myNode.firstChild) {
+          myNode.removeChild(myNode.firstChild);
+        }
+        //get input value
+        var text = document.getElementById('input_value').value;
+        if(!validInput(text)) return;
+        var res = "";
+        document.getElementById("tab").style.visibility = "visible";
+        //create new table rows
+        for(var x = 1; x <= 10; x++) {
+          res = text * x;
+          var tr = document.createElement("tr");
+          var td = document.createElement("td");
+          var node = document.createTextNode(text + " x " + x + " = " + res);
+          tr.appendChild(td);
+          td.appendChild(node);
+          document.getElementById("tab").appendChild(tr);
+        }
+      }
+    </script>
+  </body>
+</html>
